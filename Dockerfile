@@ -17,7 +17,7 @@ COPY src src
 RUN cargo build-deps
 
 COPY . .
-ENV REGENERATE_BINDINGS=1
+ENV DRACO_REGENERATE_BINDINGS=1
 # RUN cargo build
 # RUN cargo install bindgen
 CMD ["/bin/bash"]

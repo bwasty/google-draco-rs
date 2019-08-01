@@ -1,6 +1,6 @@
 # google-draco
 
-Rust wrapper crate for the [Google Draco](https://github.com/google/draco) mesh compression library.
+Rust wrapper crate for the [Google Draco](https://github.com/google/draco) mesh compression library. Not really working yet.
 
 ## Usage
 _TODO_
@@ -12,5 +12,3 @@ The bindings are generated with `rust-bindgen`, which requires clang/llvm. For e
 docker-compose run generate cargo build
 ```
 (updates `src/bindings.rs`)
-
-Manual fix required: remove duplicate definition of `ValueType`.

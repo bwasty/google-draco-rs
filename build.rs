@@ -10,10 +10,26 @@ fn main() {
         .define("BUILD_FOR_GLTF", "ON")
         .build();
 
+    // TODO!: rerun-if-changed? / rerun-if-env-changed
+
     println!("cargo:rustc-link-search=native={}/lib", dst.display());
-    // TODO!!: (optionally) only dracodec? might be smaller...
-    // println!("cargo:rustc-link-lib=static=draco");
-    println!("cargo:rustc-link-lib=static=dracodec");
+    // TODO!!: HACK...
+    println!("cargo:rustc-link-search=native=/usr/local/Cellar/llvm/8.0.0/lib");
+
+    println!("cargo:rustc-link-lib=static=dracodec"); // TODO: alternative: draco (includes encoding?)
+
+    // from https://flames-of-code.netlify.com/blog/rust-and-cmake-cplusplus/
+    let target  = env::var("TARGET").unwrap();
+    if target.contains("apple") {
+        println!("cargo:rustc-link-lib=dylib=c++");
+    } else if target.contains("linux") {
+        println!("cargo:rustc-link-lib=dylib=stdc++");
+    } else {
+        unimplemented!();
+    }
+
+    // requires nightly
+    // println!("cargo:rustc-link-lib=static-nobundle=stdc++");
 
     if env::var("DRACO_REGENERATE_BINDINGS") == Ok("1".into()) {
         let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
